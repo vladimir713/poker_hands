@@ -18,6 +18,10 @@ public class PokerHand implements Comparable<PokerHand>{
             case 'Q': return 12;
             case 'K': return 13;
             case 'A': return 14;
+            case 'S': return 0;
+            case 'H': return 1;
+            case 'D': return 2;
+            case 'C': return 3;
             default: return Integer.parseInt(String.valueOf(c));
         }
     }
@@ -58,12 +62,26 @@ public class PokerHand implements Comparable<PokerHand>{
         System.out.println(value2.entrySet());
 
         int rating1;
-        if (suit1.size() == 1 && value1.size() == 5 && value1.keySet().stream().mapToInt(key -> value1.get(key)).sum() == 60) {
+        if (suit1.size() == 1 && value1.keySet().stream().mapToInt(key -> value1.get(key)).sum() == 60) {
             rating1 = 10;
-        } else {
-
-        }
-
-        return 0;
+        } else if (suit1.size() == 1 && (value1.get(4) - value1.get(0)) == 4) {
+            rating1 = 9;
+        } else if (suit1.size() == 4 && value1.containsValue(4)) {
+            rating1 = 8;
+        } else if (value1.containsValue(2) && value1.containsValue(3)) {
+            rating1 = 7;
+        } else if (suit1.size() == 1) {
+            rating1 = 6;
+        } else if (value1.size() == 5 && (value1.get(4) - value1.get(0)) == 4) {
+            rating1 = 5;
+        } else if (value1.containsValue(3)) {
+            rating1 = 4;
+        } else if (value1.containsValue(2) && value1.size() == 3) {
+            rating1 = 3;
+        } else if (value1.containsValue(2) && value1.size() == 4) {
+            rating1 = 2;
+        } else rating1 = 1;
+        System.out.println("Rating 1 = " + rating1);
+        return rating1;
     }
 }
