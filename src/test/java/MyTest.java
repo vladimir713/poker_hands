@@ -20,7 +20,7 @@ public class MyTest {
         handsTest.add(new PokerHand("2C 2S AC 4C 4S"));
         handsTest.add(new PokerHand("2C 2S 2H 4C TC"));
         handsTest.add(new PokerHand("2C 3S 5H 4C 6D"));
-        handsTest.add(new PokerHand("2C 3C 4C 6C 5C"));
+        handsTest.add(new PokerHand("2C 3C TC AC 6C"));
         handsTest.add(new PokerHand("AC 6D 6H 6S AS"));
         handsTest.add(new PokerHand("KS KH KC KD 5D"));
         handsTest.add(new PokerHand("2C 3C 6C 4C 5C"));
@@ -34,7 +34,7 @@ public class MyTest {
 
     @Test
     public void strongestHandShouldBeSelected() {
-        for (int i = 0; i < handsTest.size(); i++) {
+        for (int i = 0; i < handsTest.size() - 1; i++) {
             for (int j = i + 1; j < handsTest.size(); j++) {
                 twoArms.clear();
                 twoArms.add(handsTest.get(i));
