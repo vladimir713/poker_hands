@@ -18,14 +18,38 @@ public class PokerHand implements Comparable<PokerHand>{
             case 'Q': return 12;
             case 'K': return 13;
             case 'A': return 14;
-            case 'S': return 0;
-            case 'H': return 1;
-            case 'D': return 2;
-            case 'C': return 3;
+//            case 'S': return 0;
+//            case 'H': return 1;
+//            case 'D': return 2;
+//            case 'C': return 3;
             default: return Integer.parseInt(String.valueOf(c));
         }
     }
 
+    private int getRating(TreeMap<Character, Integer> suit, TreeMap<Integer, Integer> value){
+        int rating1;
+        if (suit.size() == 1 && value.keySet().stream().mapToInt(key -> value.get(key)).sum() == 60) {
+            rating1 = 10;
+        } else if (suit.size() == 1 && (value.lastKey() - value.firstKey()) == 4) {
+            rating1 = 9;
+        } else if (suit.size() == 4 && value.containsValue(4)) {
+            rating1 = 8;
+        } else if (value.containsValue(2) && value.containsValue(3)) {
+            rating1 = 7;
+        } else if (suit.size() == 1) {
+            rating1 = 6;
+        } else if (value.size() == 5 && (value.lastKey() - value.firstKey()) == 4) {
+            rating1 = 5;
+        } else if (value.containsValue(3)) {
+            rating1 = 4;
+        } else if (value.containsValue(2) && value.size() == 3) {
+            rating1 = 3;
+        } else if (value.containsValue(2) && value.size() == 4) {
+            rating1 = 2;
+        } else rating1 = 1;
+        System.out.println("Rating 1 = " + rating1);
+        return rating1;
+    }
     @Override
     public int compareTo(PokerHand o) {
         List<String> h1 = new ArrayList<>(List.of(o.getHand().split(" ")));
@@ -61,27 +85,10 @@ public class PokerHand implements Comparable<PokerHand>{
         System.out.println(suit2.entrySet());
         System.out.println(value2.entrySet());
 
-        int rating1;
-        if (suit1.size() == 1 && value1.keySet().stream().mapToInt(key -> value1.get(key)).sum() == 60) {
-            rating1 = 10;
-        } else if (suit1.size() == 1 && (value1.get(4) - value1.get(0)) == 4) {
-            rating1 = 9;
-        } else if (suit1.size() == 4 && value1.containsValue(4)) {
-            rating1 = 8;
-        } else if (value1.containsValue(2) && value1.containsValue(3)) {
-            rating1 = 7;
-        } else if (suit1.size() == 1) {
-            rating1 = 6;
-        } else if (value1.size() == 5 && (value1.get(4) - value1.get(0)) == 4) {
-            rating1 = 5;
-        } else if (value1.containsValue(3)) {
-            rating1 = 4;
-        } else if (value1.containsValue(2) && value1.size() == 3) {
-            rating1 = 3;
-        } else if (value1.containsValue(2) && value1.size() == 4) {
-            rating1 = 2;
-        } else rating1 = 1;
-        System.out.println("Rating 1 = " + rating1);
-        return rating1;
+        if (getRating((TreeMap<Character, Integer>) suit1, (TreeMap<Integer, Integer>) value1) > getRating((TreeMap<Character, Integer>) suit2, (TreeMap<Integer, Integer>) value2)) {
+            return 1;
+        } else if (getRating((TreeMap<Character, Integer>) suit1, (TreeMap<Integer, Integer>) value1) < getRating((TreeMap<Character, Integer>) suit2, (TreeMap<Integer, Integer>) value2)) {
+            return -1;
+        } else return 0;
     }
 }
