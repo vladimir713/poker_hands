@@ -52,7 +52,7 @@ public class MyTest {
 
                 twoArms.add(handsTest.get(i));
                 twoArms.add(handsTest.get(j));
-                System.out.println(twoArms.get(0).getHand() + twoArms.get(1).getHand());
+                System.out.println(twoArms.get(0).getHand() + " / " + twoArms.get(1).getHand());
                 assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), -1);
     }
 
@@ -62,7 +62,7 @@ public class MyTest {
 
         twoArms.add(handsTest.get(i));
         twoArms.add(handsTest.get(j));
-        System.out.println(twoArms.get(0).getHand() + twoArms.get(1).getHand());
+        System.out.println(twoArms.get(0).getHand() + " / " + twoArms.get(1).getHand());
         assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), 1);
     }
 }

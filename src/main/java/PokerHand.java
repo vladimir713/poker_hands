@@ -28,7 +28,7 @@ public class PokerHand implements Comparable<PokerHand>{
 
     private int getRating(TreeMap<Character, Integer> suit, TreeMap<Integer, Integer> value){
 
-        if (suit.size() == 1 && value.keySet().stream().mapToInt(value::get).sum() == 60) {
+        if (suit.size() == 1 && value.keySet().stream().mapToInt(Integer::intValue).sum() == 60) {
             return  10;
         } else if (suit.size() == 1 && (value.lastKey() - value.firstKey()) == 4) {
             return  9;
