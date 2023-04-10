@@ -1,10 +1,14 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class MyTest {
 
@@ -29,19 +33,36 @@ public class MyTest {
 
     @BeforeEach
     public void handsTwo() {
-//        twoArms.clear();
+        twoArms.clear();
     }
 
-    @Test
-    public void strongestHandShouldBeSelected() {
-        for (int i = 0; i < handsTest.size() - 1; i++) {
-            for (int j = i + 1; j < handsTest.size(); j++) {
-                twoArms.clear();
+    static Stream<Arguments> provideArgumentsAsc() {
+
+        return Stream.of(0, 1, 2, 3, 4, 5, 6, 7, 8).flatMap(x -> Stream.of(arguments(x, x + 1)));
+    }
+
+    static Stream<Arguments> provideArgumentsDesc() {
+
+        return Stream.of(0, 1, 2, 3, 4, 5, 6, 7, 8).flatMap(x -> Stream.of(arguments(x + 1, x)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideArgumentsAsc")
+    public void strongestHandShouldBeSelectedDesc(int i, int j) {
+
                 twoArms.add(handsTest.get(i));
                 twoArms.add(handsTest.get(j));
                 System.out.println(twoArms.get(0).getHand() + twoArms.get(1).getHand());
-                Assertions.assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), -1);
-            }
-        }
+                assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), -1);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideArgumentsDesc")
+    public void strongestHandShouldBeSelectedAsc(int i, int j) {
+
+        twoArms.add(handsTest.get(i));
+        twoArms.add(handsTest.get(j));
+        System.out.println(twoArms.get(0).getHand() + twoArms.get(1).getHand());
+        assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), 1);
     }
 }
