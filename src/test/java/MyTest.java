@@ -1,3 +1,6 @@
+/**
+ * @author Vladimir Chugunov
+ */
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -52,17 +55,14 @@ public class MyTest {
 
                 twoArms.add(handsTest.get(i));
                 twoArms.add(handsTest.get(j));
-                System.out.println(twoArms.get(0).getHand() + " / " + twoArms.get(1).getHand());
-                assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), -1);
+                assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), 1);
     }
 
     @ParameterizedTest
     @MethodSource("provideArgumentsDesc")
     public void strongestHandShouldBeSelectedAsc(int i, int j) {
-
         twoArms.add(handsTest.get(i));
         twoArms.add(handsTest.get(j));
-        System.out.println(twoArms.get(0).getHand() + " / " + twoArms.get(1).getHand());
-        assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), 1);
+        assertEquals(twoArms.get(0).compareTo(twoArms.get(1)), -1);
     }
 }

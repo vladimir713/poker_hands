@@ -56,37 +56,34 @@ public class PokerHand implements Comparable<PokerHand>{
         TreeMap<Character, Integer> suit2= new TreeMap<>();
         TreeMap<Integer, Integer> value1= new TreeMap<>();
         TreeMap<Integer, Integer> value2= new TreeMap<>();
+
         for (int i = 0; i < 5; i++) {
-            if (suit1.containsKey(h1.get(i).charAt(1))) {
-                suit1.put(h1.get(i).charAt(1), suit1.get(h1.get(i).charAt(1)) + 1);
-            } else {
-                suit1.put(h1.get(i).charAt(1), 1);
-            }
-            if (suit2.containsKey(h2.get(i).charAt(1))) {
-                suit2.put(h2.get(i).charAt(1), suit2.get(h2.get(i).charAt(1)) + 1);
-            } else {
-                suit2.put(h2.get(i).charAt(1), 1);
-            }
-            if (value1.containsKey(charToInt(h1.get(i).charAt(0)))) {
-                value1.put(charToInt(h1.get(i).charAt(0)), value1.get(charToInt(h1.get(i).charAt(0))) + 1);
-            } else {
-                value1.put(charToInt(h1.get(i).charAt(0)), 1);
-            }
-            if (value2.containsKey(charToInt(h2.get(i).charAt(0)))) {
-                value2.put(charToInt(h2.get(i).charAt(0)), value2.get(charToInt(h2.get(i).charAt(0))) + 1);
-            } else {
-                value2.put(charToInt(h2.get(i).charAt(0)), 1);
-            }
+            setSuitOneOrInc(h1, suit1, i);
+            setSuitOneOrInc(h2, suit2, i);
+            setValueOneOrInc(h1, value1, i);
+            setValueOneOrInc(h2, value2, i);
         }
-//        System.out.println(suit1.entrySet());
-//        System.out.println(value1.entrySet());
-//        System.out.println(suit2.entrySet());
-//        System.out.println(value2.entrySet());
 
         if (getRating(suit1, value1) > getRating(suit2, value2)) {
-            return -1;
-        } else if (getRating(suit1, value1) < getRating(suit2, value2)) {
             return 1;
+        } else if (getRating(suit1, value1) < getRating(suit2, value2)) {
+            return -1;
         } else return 0;
+    }
+
+    private void setValueOneOrInc(List<String> h, TreeMap<Integer, Integer> value, int i) {
+        if (value.containsKey(charToInt(h.get(i).charAt(0)))) {
+            value.put(charToInt(h.get(i).charAt(0)), value.get(charToInt(h.get(i).charAt(0))) + 1);
+        } else {
+            value.put(charToInt(h.get(i).charAt(0)), 1);
+        }
+    }
+
+    private void setSuitOneOrInc(List<String> h, TreeMap<Character, Integer> suit, int i) {
+        if (suit.containsKey(h.get(i).charAt(1))) {
+            suit.put(h.get(i).charAt(1), suit.get(h.get(i).charAt(1)) + 1);
+        } else {
+            suit.put(h.get(i).charAt(1), 1);
+        }
     }
 }
