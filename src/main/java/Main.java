@@ -9,7 +9,7 @@ public class Main {
         hands.add(new PokerHand("2C 3C AC 4C 5C"));
         Collections.sort(hands);
         for (PokerHand ph: hands) {
-            System.out.println(ph.getHand());
+            System.out.println(ph.hand());
         }
     }
 

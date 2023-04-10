@@ -1,6 +1,7 @@
 /**
  * @author Vladimir Chugunov
  */
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,10 +16,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class MyTest {
 
-    private static List<PokerHand> handsTest = new ArrayList<>();
-    private List<PokerHand> twoArms = new ArrayList<>();
-
-    int resultCompareTo;
+    private static final List<PokerHand> handsTest = new ArrayList<>();
+    private final List<PokerHand> twoArms = new ArrayList<>();
 
     @BeforeAll
     public static void createHands() {
